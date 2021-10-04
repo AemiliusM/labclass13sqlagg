@@ -16,6 +16,14 @@ describe('demo routes', () => {
       });
   });
 
+  it('gets all species', async() => {
+    await request(app).post('/api/species')
+      .send({ species_name: 'flooper', extinct: true }, { species_name: 'dringet', extinct: true }, { species_name: 'smaxs', extinct: true });
+    return await request(app).get('/api/species').then(res => {
+      expect(res.body).toEqual({ id: '1', species_name: 'flooper', extinct: true }, { id:'2', species_name: 'dringet', extinct: true }, { id:'3', species_name: 'smaxs', extinct: true });
+    });
+  });
+
   afterAll(() => {
     pool.end();
   });
