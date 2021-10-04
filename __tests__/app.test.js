@@ -11,7 +11,7 @@ describe('demo routes', () => {
     return await request(app).post('/api/species')
       .send({ species_name: 'flooper', extinct: true })
       .then(res => {
-        expect(res.body).toEqual({ species_name: 'flooper', extinct: true });
+        expect(res.body).toEqual({ id: '1', species_name: 'flooper', extinct: true });
 
       });
   });
