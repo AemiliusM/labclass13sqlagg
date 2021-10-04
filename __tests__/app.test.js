@@ -7,6 +7,14 @@ describe('demo routes', () => {
   beforeEach(() => {
     return setup(pool);
   });
+  it('posts a new species to the species table', async() => {
+    return await request(app).post('/api/species')
+      .send({ species_name: 'flooper', extinct: true })
+      .then(res => {
+        expect(res.body).toEqual({ species_name: 'flooper', extinct: true });
+
+      });
+  });
 
   afterAll(() => {
     pool.end();
