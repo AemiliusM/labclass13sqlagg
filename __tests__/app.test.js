@@ -59,14 +59,14 @@ describe('demo routes', () => {
     });
   });
 
-  it('updates an animal', async() => {
+  it('updates an animal name', async() => {
     await request(app).post('/api/species')
       .send({ species_name: 'flooper', extinct: true }, 
         { species_name: 'dringet', extinct: true }, 
         { species_name: 'smaxs', extinct: true });
     await request(app).post('/api/animals')
       .send({ name: 'bickle', colour: 'forest purple', species_id: '1' });
-    return (await request(app).patch('/api/animals/1')).send({ name: 'narkle', colour: 'forest purple', species_id: '1' }).then(res => {
+    return await request(app).patch('/api/animals/1').send({ name: 'narkle', colour: 'forest purple', species_id: '1' }).then(res => {
       expect(res.body).toEqual({ id: '1', name: 'narkle', colour: 'forest purple', species_id: '1' });
     });
   });
