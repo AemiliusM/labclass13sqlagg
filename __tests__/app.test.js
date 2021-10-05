@@ -47,14 +47,27 @@ describe('demo routes', () => {
     });
 
   });  
-  it('gets all animals and their species', async() => {
+  xit('gets all animals and their species', async() => {
     await request(app).post('/api/species')
       .send({ species_name: 'flooper', extinct: true }, 
         { species_name: 'dringet', extinct: true }, 
         { species_name: 'smaxs', extinct: true });
-    await request(app).post('/api/animals').send({ name: 'bickle', colour: 'forest purple', species_id: '1' });
-    return await request(app).get('/all').then(res => {
+    await request(app).post('/api/animals')
+      .send({ name: 'bickle', colour: 'forest purple', species_id: '1' });
+    return await request(app).get('/api/animals/all').then(res => {
       expect(res.body).toEqual({ name: 'bickle', species_name: 'flooper' });
+    });
+  });
+
+  it('updates an animal', async() => {
+    await request(app).post('/api/species')
+      .send({ species_name: 'flooper', extinct: true }, 
+        { species_name: 'dringet', extinct: true }, 
+        { species_name: 'smaxs', extinct: true });
+    await request(app).post('/api/animals')
+      .send({ name: 'bickle', colour: 'forest purple', species_id: '1' });
+    return (await request(app).patch('/api/animals/1')).send({ name: 'narkle', colour: 'forest purple', species_id: '1' }).then(res => {
+      expect(res.body).toEqual({ id: '1', name: 'narkle', colour: 'forest purple', species_id: '1' });
     });
   });
   afterAll(() => {

@@ -12,4 +12,4 @@ CREATE TABLE animals (
     colour TEXT NOT NULL,
     species_id BIGINT NOT NULL,
     FOREIGN KEY(species_id) REFERENCES species(id) ON DELETE CASCADE
-)
+);
