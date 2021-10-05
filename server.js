@@ -1,7 +1,7 @@
 import app from './lib/app.js';
 import pool from './lib/utils/pool.js';
 
-const PORT = process.env.PORT || 7890;
+const PORT = process.env.PORT || 7891;
 
 app.listen(PORT, () => {
   // eslint-disable-next-line no-console
@@ -9,6 +9,7 @@ app.listen(PORT, () => {
 });
 
 process.on('exit', () => {
+  // eslint-disable-next-line no-console
   console.log('Goodbye!');
   pool.end();
 });

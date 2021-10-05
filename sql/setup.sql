@@ -1,7 +1,15 @@
--- DROP TABLE IF EXISTS animals, speicies;
+DROP TABLE IF EXISTS animals;
+DROP TABLE IF EXISTS species CASCADE;
 
--- CREATE TABLE animals (
---     id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
---     name TEXT NOT NULL,
-
--- )
+CREATE TABLE species (
+    id BIGINT GENERATED ALWAYS AS IDENTITY UNIQUE,
+    species_name TEXT NOT NULL UNIQUE,
+    extinct BOOLEAN NOT NULL
+);
+CREATE TABLE animals (
+    id BIGINT GENERATED ALWAYS AS IDENTITY,
+    name TEXT NOT NULL,
+    colour TEXT NOT NULL,
+    species_id BIGINT NOT NULL,
+    FOREIGN KEY(species_id) REFERENCES species(id) ON DELETE CASCADE
+);
