@@ -43,7 +43,7 @@ describe('demo routes', () => {
         { species_name: 'smaxs', extinct: true });
     await request(app).post('/api/animals').send({ name: 'bickle', colour: 'forest purple', species_id: '1' });
     return await request(app).get('/api/animals/1').then(res => {
-      expect(res.body).toEqual({ name: 'bickle', colour: 'forest purple', species_id: '1' });
+      expect(res.body).toEqual({ id: '1', name: 'bickle', colour: 'forest purple', species_id: '1' });
     });
   });  
   afterAll(() => {
