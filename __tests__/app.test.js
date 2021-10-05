@@ -69,6 +69,18 @@ describe('demo routes', () => {
     return await request(app).patch('/api/animals/1').send({ name: 'narkle', colour: 'forest purple', species_id: '1' }).then(res => {
       expect(res.body).toEqual({ id: '1', name: 'narkle', colour: 'forest purple', species_id: '1' });
     });
+
+  });
+  it('should delete an animal', async() => {
+    await request(app).post('/api/species')
+      .send({ species_name: 'flooper', extinct: true }, 
+        { species_name: 'dringet', extinct: true }, 
+        { species_name: 'smaxs', extinct: true });
+    await request(app).post('/api/animals')
+      .send({ name: 'bickle', colour: 'forest purple', species_id: '1' });
+    return await request(app).delete('/api/species/1').then(res => {
+      expect(res.body).toEqual({ id: '1', name: 'bickle', colour: 'forest purple', species_id: '1' });
+    });
   });
   afterAll(() => {
     pool.end();
