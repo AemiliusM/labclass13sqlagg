@@ -35,6 +35,17 @@ describe('demo routes', () => {
       expect(res.body).toEqual({ id: '1', name: 'bickle', colour: 'forest purple', species_id: '1' });
     });
   });
+
+  it('gets an animal by id', async() => {
+    await request(app).post('/api/species')
+      .send({ species_name: 'flooper', extinct: true }, 
+        { species_name: 'dringet', extinct: true }, 
+        { species_name: 'smaxs', extinct: true });
+    await request(app).post('/api/animals').send({ name: 'bickle', colour: 'forest purple', species_id: '1' });
+    return await request(app).get('/api/animals/1').then(res => {
+      expect(res.body).toEqual({ name: 'bickle', colour: 'forest purple', species_id: '1' });
+    });
+  });  
   afterAll(() => {
     pool.end();
   });
