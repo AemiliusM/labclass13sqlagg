@@ -81,7 +81,7 @@ describe('demo routes', () => {
     await request(app).post('/api/animals')
       .send({ name: 'bickle', colour: 'forest purple', speciesId: '1' });
     return request(app).get('/api/animals/count').then(res => {
-      expect(res.body).toEqual('1');
+      expect(res.body).toEqual({ speciesName: 'flooper', name: 'bickle', count: '1' });
     });
   });
 
